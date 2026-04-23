@@ -8,6 +8,5 @@ import com.vivek.expense.expense_tracker.dto.ExpenseResponse;
 public interface ExpenseService {
 
     ExpenseResponse createExpense(CreateExpenseRequest request, String idempotencyKey);
-
     List<ExpenseResponse> getExpenses(String category, String sort);
 }
