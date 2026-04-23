@@ -29,7 +29,7 @@ public class ExpenseValidationTest {
         }
         """;
 
-        mockMvc.perform(post("/expenses")
+        mockMvc.perform(post("/api/v1/expenses")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
                 .andExpect(status().isBadRequest());
@@ -45,7 +45,7 @@ public class ExpenseValidationTest {
         }
         """;
 
-        mockMvc.perform(post("/expenses")
+        mockMvc.perform(post("/api/v1/expenses")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
                 .andExpect(status().isBadRequest());
