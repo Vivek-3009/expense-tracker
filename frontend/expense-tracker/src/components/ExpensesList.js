@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { fetchExpenses } from "../api";
 
 export default function ExpenseList() {
@@ -9,37 +9,45 @@ export default function ExpenseList() {
   const [error, setError] = useState(null);
   const debounceTimer = useRef(null);
 
-  const loadExpenses = async (cat = category, s = sort) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const data = await fetchExpenses({ category: cat, sort: s });
-      setExpenses(data || []);
-    } catch (err) {
-      setError(err.message || "Failed to load expenses");
-      setExpenses([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // ✅ FIX: wrap in useCallback
+  const loadExpenses = useCallback(
+    async (cat = category, s = sort) => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const data = await fetchExpenses({ category: cat, sort: s });
+        setExpenses(data || []);
+      } catch (err) {
+        setError(err.message || "Failed to load expenses");
+        setExpenses([]);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [category, sort]
+  );
 
   useEffect(() => {
-    // Debounce category filter
     if (debounceTimer.current) {
       clearTimeout(debounceTimer.current);
     }
+
     debounceTimer.current = setTimeout(() => {
-      loadExpenses(category, sort);
+      loadExpenses();
     }, 500);
 
     return () => clearTimeout(debounceTimer.current);
-  }, [category, sort]);
+  }, [category, sort, loadExpenses]);
 
   const handleClearFilter = () => {
     setCategory("");
   };
 
-  const total = expenses.reduce((sum, e) => sum + parseFloat(e.amount || 0), 0);
+  const total = expenses.reduce(
+    (sum, e) => sum + parseFloat(e.amount || 0),
+    0
+  );
 
   return (
     <div>
@@ -54,7 +62,11 @@ export default function ExpenseList() {
           style={{ padding: "8px", marginRight: "10px" }}
         />
 
-        <select value={sort} onChange={(e) => setSort(e.target.value)} style={{ padding: "8px", marginRight: "10px" }}>
+        <select
+          value={sort}
+          onChange={(e) => setSort(e.target.value)}
+          style={{ padding: "8px", marginRight: "10px" }}
+        >
           <option value="date_desc">Newest First</option>
           <option value="date_asc">Oldest First</option>
         </select>
@@ -73,7 +85,9 @@ export default function ExpenseList() {
         <p>Loading...</p>
       ) : expenses.length === 0 ? (
         <p style={{ fontStyle: "italic", color: "#666" }}>
-          {category ? `No expenses found for category "${category}"` : "No expenses yet"}
+          {category
+            ? `No expenses found for category "${category}"`
+            : "No expenses yet"}
         </p>
       ) : (
         <table border="1" style={{ width: "100%", marginBottom: "20px" }}>
@@ -85,10 +99,13 @@ export default function ExpenseList() {
               <th style={{ padding: "8px" }}>Date</th>
             </tr>
           </thead>
+
           <tbody>
             {expenses.map((e) => (
               <tr key={e.id}>
-                <td style={{ padding: "8px" }}>₹{parseFloat(e.amount).toFixed(2)}</td>
+                <td style={{ padding: "8px" }}>
+                  ₹{parseFloat(e.amount).toFixed(2)}
+                </td>
                 <td style={{ padding: "8px" }}>{e.category}</td>
                 <td style={{ padding: "8px" }}>{e.description || "-"}</td>
                 <td style={{ padding: "8px" }}>{e.date}</td>
@@ -99,7 +116,9 @@ export default function ExpenseList() {
       )}
 
       {/* Total */}
-      {expenses.length > 0 && <h4>Total: ₹{total.toFixed(2)}</h4>}
+      {expenses.length > 0 && (
+        <h4>Total: ₹{total.toFixed(2)}</h4>
+      )}
     </div>
   );
 }
