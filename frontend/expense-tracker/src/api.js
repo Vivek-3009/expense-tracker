@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:8080"; // change after deployment
+const API_BASE_URL = "https://expense-tracker-nt9t.onrender.com";
 
 export async function createExpense(payload, idempotencyKey) {
   const res = await fetch(`${API_BASE_URL}/api/v1/expenses`, {
