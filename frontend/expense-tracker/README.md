@@ -1,70 +1,132 @@
-# Getting Started with Create React App
+# Expense Tracker Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 🔗 Live Application
 
-## Available Scripts
+https://expense-tracker-six-lyart-83.vercel.app
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 📌 Overview
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This is the frontend for the Expense Tracker application.
+It provides a simple and responsive UI to create, view, filter, and analyze personal expenses by interacting with the backend API.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🚀 Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* Add new expense (amount, category, description, date)
+* View list of expenses
+* Filter expenses by category
+* Sort expenses by date (newest first)
+* Display total amount of visible expenses
+* Handles loading and error states
+* Retry-safe submission using **Idempotency-Key**
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🧠 Key Concepts
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Idempotent Requests
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Each expense creation request includes a unique **Idempotency-Key**:
 
-### `npm run eject`
+* Prevents duplicate entries on multiple clicks or retries
+* Ensures consistency in unreliable network conditions
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### State Management
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+* Managed using React Hooks (`useState`, `useEffect`)
+* Automatically refreshes expense list after adding new expense
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 🏗️ Tech Stack
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* React (Functional Components)
+* JavaScript (ES6+)
+* Fetch API
+* UUID (for idempotency key generation)
+* Deployed on Vercel
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## ⚙️ API Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The frontend communicates with the backend API:
 
-### Analyzing the Bundle Size
+```javascript
+const API_BASE_URL = "https://expense-tracker-nt9t.onrender.com";
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## 📁 Project Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```text
+src/
+├── components/
+│   ├── ExpenseForm.js
+│   ├── ExpenseList.js
+├── api.js
+├── App.js
+└── index.js
+```
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🛠️ Setup & Run Locally
 
-### Deployment
+### 1. Install dependencies
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+npm install
+```
 
-### `npm run build` fails to minify
+### 2. Start the application
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+npm start
+```
+
+App will run at:
+
+```text
+http://localhost:3000
+```
+
+---
+
+## ⚠️ Known Limitations
+
+* Basic UI (focus is on functionality, not styling)
+* No authentication
+* Category input is free text (no predefined list)
+
+---
+
+## 🚀 Future Improvements
+
+* Add category dropdown or suggestions
+* Improve UI/UX design
+* Add charts/analytics (expense by category)
+* Add pagination for large datasets
+* Better error messaging
+
+---
+
+## 🎯 Highlights
+
+* Clean and minimal UI
+* Real-world handling of duplicate submissions
+* Proper API integration with backend
+* Dynamic filtering and sorting
+* Accurate total calculation
+
+---
+
+## 👨‍💻 Author
+
+Vivek Singh Bisht
