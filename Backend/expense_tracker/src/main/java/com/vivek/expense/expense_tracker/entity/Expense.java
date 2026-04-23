@@ -9,17 +9,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
 @Table(name = "expenses", indexes = {
     @Index(name = "idx_idempotency", columnList = "idempotencyKey", unique = true)
@@ -44,4 +36,74 @@ public class Expense {
 
     @Column(unique = true)
     private String idempotencyKey;
+
+    public Expense() {
+    }
+
+    public Expense(String id, BigDecimal amount, String category, String description,LocalDate date, LocalDateTime createdAt, String idempotencyKey) {
+        this.id = id;
+        this.amount = amount;
+        this.category = category;
+        this.description = description;
+        this.date = date;
+        this.createdAt = createdAt;
+        this.idempotencyKey = idempotencyKey;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getIdempotencyKey() {
+        return idempotencyKey;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setIdempotencyKey(String idempotencyKey) {
+        this.idempotencyKey = idempotencyKey;
+    }
+
 }
