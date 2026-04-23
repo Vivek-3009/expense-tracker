@@ -3,15 +3,12 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import lombok.Data;
+public record ExpenseResponse(
 
-@Data
-public class ExpenseResponse {
-
-     private String id;
-    private BigDecimal amount;
-    private String category;
-    private String description;
-    private LocalDate date;
-    private LocalDateTime createdAt;
-}
+    String id,
+    BigDecimal amount,
+    String category,
+    String description,
+    LocalDate date,
+    LocalDateTime createdAt)
+{}
