@@ -12,4 +12,6 @@ public interface ExpenseRepository extends JpaRepository<Expense, String> {
     Optional<Expense> findByIdempotencyKey(String key);
 
     List<Expense> findByCategory(String category);
+    
+    List<Expense> findByCategoryStartingWithIgnoreCase(String category);
 }

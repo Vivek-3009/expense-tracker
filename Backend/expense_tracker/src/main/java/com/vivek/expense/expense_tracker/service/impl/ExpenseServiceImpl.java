@@ -62,12 +62,14 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public List<ExpenseResponse> getExpenses(String category, String sort) {
 
-        List<Expense> expenses = (category != null)
-                ? repo.findByCategory(category)
+        List<Expense> expenses = (category != null && !category.isEmpty())
+                ? repo.findByCategoryStartingWithIgnoreCase(category)
                 : repo.findAll();
 
         if ("date_desc".equals(sort)) {
             expenses.sort((a, b) -> b.getDate().compareTo(a.getDate()));
+        } else if ("date_asc".equals(sort)) {
+            expenses.sort((a, b) -> a.getDate().compareTo(b.getDate()));
         }
 
         return expenses.stream()
