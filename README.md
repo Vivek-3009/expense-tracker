@@ -99,8 +99,11 @@ Used `BigDecimal` for the `amount` field:
 ## ⚖️ Trade-offs
 
 * Used **H2 in-memory database** for simplicity
-
   * Data resets on application restart
+    
+* Backend is deployed on Render (free tier)  
+  * Initial request may be slow due to cold start (service spins up after inactivity)
+    
 * No authentication/authorization implemented
 * UI kept minimal (focus on correctness over styling)
 * Pagination not implemented (not required in assignment)
@@ -159,9 +162,7 @@ http://localhost:3000
 ```
 
 ---
-
-## 📁 Project Structure
-
+```
 expense-tracker/
 ├── backend/
 │   ├── controller/
@@ -177,7 +178,7 @@ expense-tracker/
 │   │   ├── App.js
 │   │   └── index.js
 └── README.md
-
+```
 ---
 
 ## 🎯 Key Highlights
